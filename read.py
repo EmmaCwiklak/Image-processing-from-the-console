@@ -5,7 +5,7 @@ from UserOutputs import pathInput, selectingEdiction
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--file", default='cat.jpg', help='path to your picture')
+    parser.add_argument("--file", default='logo.jpg', help='path to your picture')
     parser.add_argument("--operation", default='display', help='choose edit operation')
 
     args = parser.parse_args()
@@ -18,10 +18,6 @@ def main():
         cv.imshow(f'{args.file}', img)
     elif args.operation == "resize":
         resizing(args.file)
-
-
-
-
 
 
     cv.waitKey(0)
