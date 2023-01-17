@@ -1,12 +1,12 @@
 import cv2 as cv
 import argparse
-from functions import rescaleFrame
+from functions import rescaleFrame,resizing
 from UserOutputs import pathInput, selectingEdiction
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--file", help='path to your picture')
-    parser.add_argument("--operation", help='choose edit operation')
+    parser.add_argument("--file", default='cat.jpg', help='path to your picture')
+    parser.add_argument("--operation", default='display', help='choose edit operation')
 
     args = parser.parse_args()
     print(args.file)
@@ -16,6 +16,9 @@ def main():
         # wyswietlanie obrazu
         img = cv.imread(args.file)
         cv.imshow(f'{args.file}', img)
+    elif args.operation == "resize":
+        resizing(args.file)
+
 
 
 
