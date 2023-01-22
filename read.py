@@ -7,6 +7,9 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--file", default='logo.jpg', help='path to your picture')
     parser.add_argument("--operation", default='display', help='choose edit operation')
+    parser.add_argument("--x",action='append', help="size of cutted area")
+    parser.parse_args("--x x ".split())
+
 
     args = parser.parse_args()
     print(args.file)
@@ -17,7 +20,15 @@ def main():
         img = cv.imread(args.file)
         cv.imshow(f'{args.file}', img)
     elif args.operation == "resize":
+        img = cv.imread(args.file)
         resizing(args.file)
+        cv.imwrite('save.jpg', img)
+    elif args.operation == "cutsmth":
+        img = cv.imread(args.file)
+        x=args.file.x[0]
+        img = img[x:x, x:x, :]
+        cv.imwrite('save2.jpg', img)
+
 
 
     cv.waitKey(0)

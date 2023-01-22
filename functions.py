@@ -22,6 +22,8 @@ def resizing(img):
 
     print('Resized Dimensions : ', resized.shape)
 
+    img_result= resized.copy()
+
     cv2.imshow("Resized image", resized)
     cv2.waitKey(0)
     #cv2.destroyAllWindows()
