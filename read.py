@@ -17,14 +17,19 @@ def main():
     print(args.y)
     x = int(args.x)
     y = int(args.y)
+
     if args.operation == "display":
         # wyswietlanie obrazu
         img = cv.imread(args.file)
-        img = rescaleFrame(img, x)
-        cv.imshow(f'{args.file}', img)
+        if args.x != 5:
+            img = rescaleFrame(img, x)
+            cv.imshow(f'{args.file}', img)
+        else:
+            img = rescaleFrame(img, 0.5)
+            cv.imshow(f'{args.file}', img)
     elif args.operation == "resize":
         img = cv.imread(args.file)
-        resizing(args.file)
+        img = resizing(img,x)
         cv.imwrite('resize.jpg', img) #nie zapisuje
     elif args.operation == "cutsmth": #dziala
         img = cv.imread(args.file)

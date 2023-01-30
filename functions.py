@@ -1,47 +1,41 @@
-import cv2
+import cv2 as cv
 
-def rescaleFrame(img, scale=0.5):
+def rescaleFrame(img, scale):
     width = int(img.shape[1] * scale)
     height = int(img.shape[0] * scale)
     dimensions = (width, height)
 
-    return cv2.resize(img, dimensions, interpolation=cv2.INTER_AREA)
+    return cv.resize(img, dimensions, interpolation=cv.INTER_AREA)
 
-def resizing(img):
-    image = cv2.imread(img)
+def resizing(img, scale_percent):
+    print('Original Dimensions : ', img.shape)
 
-    print('Original Dimensions : ', image.shape)
-
-    scale_percent = 10  # percent of original size
-    width = int(image.shape[1] * scale_percent / 100)
-    height = int(image.shape[0] * scale_percent / 100)
+    width = int(img.shape[1] * scale_percent / 100)
+    height = int(img.shape[0] * scale_percent / 100)
     dim = (width, height)
 
-    # resize image
-    resized = cv2.resize(image, dim, interpolation=cv2.INTER_AREA)
+    resized = cv.resize(img, dim, interpolation=cv.INTER_AREA)
 
     print('Resized Dimensions : ', resized.shape)
 
-    img_result= resized.copy()
+    cv.imshow("Resized image", resized)
+    cv.waitKey(0)
 
-    cv2.imshow("Resized image", resized)
-    cv2.waitKey(0)
-    #cv2.destroyAllWindows()
-    return image
+    return resized
 
 def gray(img):
-    image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    cv2.imshow('Gray', image)
+    image = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+    cv.imshow('Gray', image)
     return image
 
 def blur(img,x):
-    image = cv2.GaussianBlur(img, (x,x), cv2.BORDER_DEFAULT)
-    cv2.imshow('Blur', image)
+    image = cv.GaussianBlur(img, (x,x), cv.BORDER_DEFAULT)
+    cv.imshow('Blur', image)
     return image
 
 def canny(img):
-    image = cv2.Canny(img, 125, 175)
-    cv2.imshow('Canny', image)
+    image = cv.Canny(img, 125, 175)
+    cv.imshow('Canny', image)
     return image
 
 #def filtrowanie_koloru(img):
