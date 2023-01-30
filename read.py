@@ -1,14 +1,13 @@
 import cv2 as cv
 import argparse
-from functions import rescaleFrame,resizing, obrot,gray, blur, canny
-from UserOutputs import pathInput, selectingEdiction
+from functions import rescaleFrame, resizing, gray, blur, canny
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--file", default='logo.jpg', help='path to your picture')
+    parser.add_argument("--file", default='cat.jpg', help='path to your picture')
     parser.add_argument("--operation", default='display', help='choose edit operation')
-    parser.add_argument("--x", help='x', default=500, type=int)
-    parser.add_argument("--y", help='y', default=500, type=int)
+    parser.add_argument("--x", help='x', default=5, type=int)
+    parser.add_argument("--y", help='y', default=5, type=int)
 
 
     args = parser.parse_args()
@@ -16,36 +15,31 @@ def main():
     print(args.operation)
     print(args.x)
     print(args.y)
-
+    x = int(args.x)
+    y = int(args.y)
     if args.operation == "display":
         # wyswietlanie obrazu
         img = cv.imread(args.file)
-        resized_image = rescaleFrame(img)
-        cv.imshow(f'{args.file}', resized_image)
+        img = rescaleFrame(img, x)
+        cv.imshow(f'{args.file}', img)
     elif args.operation == "resize":
         img = cv.imread(args.file)
         resizing(args.file)
-        cv.imwrite('resize.jpg', img)
-    elif args.operation == "cutsmth":
+        cv.imwrite('resize.jpg', img) #nie zapisuje
+    elif args.operation == "cutsmth": #dziala
         img = cv.imread(args.file)
-        x = args.x
-        y = args.y
         img = img[0:x, 0:y, :]
         cv.imshow('Cutted', img)
         cv.imwrite('cut.jpg', img)
-    elif args.operation == "obrot":
-        img = cv.imread(args.file)
-        img = obrot(img)
-        cv.imwrite('obrocone.jpg', img)
-    elif args.operation == "gray":
+    elif args.operation == "gray": #dziala
         img = cv.imread(args.file)
         img = gray(img)
         cv.imwrite('szare.jpg', img)
-    elif args.operation == "blur":
+    elif args.operation == "blur": #dziala
         img = cv.imread(args.file)
-        img = blur(img)
+        img = blur(img,x)
         cv.imwrite('blur.jpg', img)
-    elif args.operation == "canny":
+    elif args.operation == "canny": #dziala
         img = cv.imread(args.file)
         img = canny(img)
         cv.imwrite('canny.jpg', img)
@@ -53,7 +47,6 @@ def main():
         img = cv.imread(args.file)
         img = canny(img)
         cv.imwrite('canny.jpg', img)
-
 
 
     cv.waitKey(0)
