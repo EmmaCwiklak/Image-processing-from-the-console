@@ -1,33 +1,58 @@
 import cv2 as cv
 import argparse
-from functions import rescaleFrame,resizing
+from functions import rescaleFrame,resizing, obrot,gray, blur, canny
 from UserOutputs import pathInput, selectingEdiction
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--file", default='logo.jpg', help='path to your picture')
     parser.add_argument("--operation", default='display', help='choose edit operation')
-    parser.add_argument("--x",action='append', help="size of cutted area")
-    parser.parse_args("--x x ".split())
+    parser.add_argument("--x", help='x', default=500, type=int)
+    parser.add_argument("--y", help='y', default=500, type=int)
 
 
     args = parser.parse_args()
     print(args.file)
     print(args.operation)
+    print(args.x)
+    print(args.y)
 
     if args.operation == "display":
         # wyswietlanie obrazu
         img = cv.imread(args.file)
-        cv.imshow(f'{args.file}', img)
+        resized_image = rescaleFrame(img)
+        cv.imshow(f'{args.file}', resized_image)
     elif args.operation == "resize":
         img = cv.imread(args.file)
         resizing(args.file)
-        cv.imwrite('save.jpg', img)
+        cv.imwrite('resize.jpg', img)
     elif args.operation == "cutsmth":
         img = cv.imread(args.file)
-        x=args.file.x[0]
-        img = img[x:x, x:x, :]
-        cv.imwrite('save2.jpg', img)
+        x = args.x
+        y = args.y
+        img = img[0:x, 0:y, :]
+        cv.imshow('Cutted', img)
+        cv.imwrite('cut.jpg', img)
+    elif args.operation == "obrot":
+        img = cv.imread(args.file)
+        img = obrot(img)
+        cv.imwrite('obrocone.jpg', img)
+    elif args.operation == "gray":
+        img = cv.imread(args.file)
+        img = gray(img)
+        cv.imwrite('szare.jpg', img)
+    elif args.operation == "blur":
+        img = cv.imread(args.file)
+        img = blur(img)
+        cv.imwrite('blur.jpg', img)
+    elif args.operation == "canny":
+        img = cv.imread(args.file)
+        img = canny(img)
+        cv.imwrite('canny.jpg', img)
+    elif args.operation == "canny":
+        img = cv.imread(args.file)
+        img = canny(img)
+        cv.imwrite('canny.jpg', img)
 
 
 
@@ -35,23 +60,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-"""
-file = argparse.ArgumentParser()
-
-    file.add_argument('-f', '--file', action='store', dest='path_from', default='cat.jpg',help='path to your file')
-    results = file.parse_args()
-
-    rescale = argparse.ArgumentParser()
-    rescale.add_argument('-rs','--rescale', dest='accumulate', action='store',help='rescale displayed image')
-    display = rescale.parse_args()
-
-    img = cv.imread(results.path_from)
-
-    resized_image = rescaleFrame(img)
-    cv.imshow(f'{results}', resized_image)
-
-#selectingEdiction()
-
-    cv.waitKey(0) #czeka na jakis
-"""
