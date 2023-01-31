@@ -5,8 +5,8 @@ def rescaleFrame(img, scale):
     height = int(img.shape[0] * scale)
     dimensions = (width, height)
 
-    return cv.resize(img, dimensions, interpolation=cv.INTER_AREA)
-
+    img = cv.resize(img, dimensions, interpolation=cv.INTER_AREA)
+    return cv.imshow('default', img)
 def resizing(img, scale_percent):
     print('Original Dimensions : ', img.shape)
 
@@ -21,21 +21,18 @@ def resizing(img, scale_percent):
     cv.imshow("Resized image", resized)
     cv.waitKey(0)
 
-    return resized
-
+    cv.imwrite('resize.jpg', resized)
 def gray(img):
     image = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
     cv.imshow('Gray', image)
-    return image
-
+    cv.imwrite('gray.jpg', image)
 def blur(img,x):
     image = cv.GaussianBlur(img, (x,x), cv.BORDER_DEFAULT)
     cv.imshow('Blur', image)
-    return image
-
+    cv.imwrite('blur.jpg', image)
 def canny(img):
     image = cv.Canny(img, 125, 175)
     cv.imshow('Canny', image)
-    return image
+    cv.imwrite('canny.jpg', image)
 
 #def filtrowanie_koloru(img):

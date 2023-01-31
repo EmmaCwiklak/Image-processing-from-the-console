@@ -6,7 +6,7 @@ def main():
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--file", default='cat.jpg', help='path to your picture')
-    parser.add_argument("--operation", default='display', help='choose edit operation')
+    parser.add_argument("--operation", default='default', help='choose edit operation')
     parser.add_argument("--x", "-x", help='x', default=5, type=int)
     parser.add_argument("--y", "-y", help='y', default=5, type=int)
     parser.add_argument("--r", "-r", help='red', default=255, type=int)
@@ -25,71 +25,39 @@ def main():
 
     img = cv.imread(args.file)
 
-    def cutsmth():
-        img = cv.imread(args.file)
-        img = img[0:x, 0:y, :]
-        cv.imshow('Cutted', img)
-        cv.imwrite('cut.jpg', img)
 
-    def resize():
-        img = cv.imread(args.file)
-        img = resizing(img, x)
-        cv.imwrite('resize.jpg', img)
-    def display(img,x):
-        if x != 5:
-            img = rescaleFrame(img, x)
-            cv.imshow(f'{args.file}', img)
-        else:
-            img = rescaleFrame(img, 0.5)
-            cv.imshow(f'{args.file}', img)
-        cv.waitKey(0)
-
-    def cos():
-        print("cos")
-
-    switcher = {
-        "cutsmth": cutsmth(),
-        "resize": resize(),
-        "display": display(img, x),
-        "cos": cos()
-    }
-
-    def switch(args):
-        return switcher.get(args.operation)()
-"""
- if args.operation == "display":
+    if args.operation == "default":
         # wyswietlanie obrazu
         if args.x != 5:
-            img = rescaleFrame(img, x)
-            cv.imshow(f'{args.file}', img)
+            rescaleFrame(img, x)
         else:
-            img = rescaleFrame(img, 0.5)
-            cv.imshow(f'{args.file}', img)
+            rescaleFrame(img, 0.5)
     elif args.operation == "resize": #dziala
-        img = resizing(img,x)
-        cv.imwrite('resize.jpg', img)
+        resizing(img,x)
+
     elif args.operation == "cutsmth": #dziala
         img = img[0:x, 0:y, :]
         cv.imshow('Cutted', img)
         cv.imwrite('cut.jpg', img)
-    elif args.operation == "gray": #dziala
-        img = gray(img)
-        cv.imwrite('szare.jpg', img)
-    elif args.operation == "blur": #dziala
-        img = blur(img,x)
-        cv.imwrite('blur.jpg', img)
-    elif args.operation == "canny": #dziala
-        img = canny(img)
-        cv.imwrite('canny.jpg', img)
-    elif args.operation == "split":
 
+    elif args.operation == "gray": #dziala
+        gray(img)
+
+    elif args.operation == "blur": #dziala
+        if x%2==0:
+            x+=1
+        blur(img,x)
+
+    elif args.operation == "canny": #dziala
+        canny(img)
+
+    elif args.operation == "split":
         merged = cv.merge([b,g,r])
         cv.imshow("Merged Image", merged)
 
     cv.waitKey(0)
-"""
-
 
 if __name__ == '__main__':
     main()
+
 
