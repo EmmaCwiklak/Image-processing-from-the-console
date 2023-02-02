@@ -17,6 +17,10 @@
 
 ## Przykładowe rezultaty
 
-![fotka](fotka.jpg)
-
-## Uwagi końcowe
+![blur](https://i.ibb.co/dKVKXrg/blur.png)
+![flip](https://i.ibb.co/JcVRv33/flip.png)
+![gray](https://i.ibb.co/VwkNR0R/gray.png)
+![hsv](https://i.ibb.co/bQRxCgN/hsv.png)
+![lab](https://i.ibb.co/n08Y134/lab.png)
+![rotate](https://i.ibb.co/qdwGYRQ/rotate.png)
+![translate](https://i.ibb.co/ZNtPcWJ/translate.png)
