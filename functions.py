@@ -1,5 +1,6 @@
 import cv2 as cv
 import numpy as np
+import filecmp
 def rescaleFrame(img, scale):
     width = int(img.shape[1] * scale)
     height = int(img.shape[0] * scale)
@@ -7,14 +8,15 @@ def rescaleFrame(img, scale):
 
     img = cv.resize(img, dim, interpolation=cv.INTER_AREA)
     return cv.imshow('default', img)
-def resizing(img, scale_percent):
+
+def resizing(img, scale):
     print('Original Dimensions : ', img.shape)
 
-    width = int(img.shape[1] * scale_percent / 100)
-    height = int(img.shape[0] * scale_percent / 100)
+    width = int(img.shape[1] * scale/100)
+    height = int(img.shape[0] * scale/100)
     dim = (width, height)
 
-    resized = cv.resize(img, dim, interpolation=cv.INTER_AREA)
+    resized = cv.resize(img, dim, interpolation = cv.INTER_AREA)
 
     print('Resized Dimensions : ', resized.shape)
 
@@ -22,10 +24,13 @@ def resizing(img, scale_percent):
     cv.waitKey(0)
 
     cv.imwrite('resize.jpg', resized)
+    return resized
 def gray(img):
     image = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
     cv.imshow('Gray', image)
     cv.imwrite('gray.jpg', image)
+    return image
+
 def blur(img,x):
     image = cv.GaussianBlur(img, (x,x), cv.BORDER_DEFAULT)
     cv.imshow('Blur', image)
@@ -51,3 +56,13 @@ def rotate(img, angle, rotPoint=None):
 
     return cv.warpAffine(img, rotated, dimensions)
     cv.imshow('Rotated', image)
+
+def test(img):
+    try:
+        filecmp.cmp(img,"gray_wsb.jpg")
+    except:
+        print("Pliki nie sa takie same")
+    else:
+        print("Pliki sa takie same")
+    finally:
+        print("Koniec")
