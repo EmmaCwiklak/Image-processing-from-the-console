@@ -17,6 +17,6 @@
 
 ## Przykładowe rezultaty
 
-![fotka](fotka.jpg)
+![fotka](https://i.ibb.co/dKVKXrg/blur.png)
 
 ## Uwagi końcowe
