@@ -1,4 +1,4 @@
-# Emma Ćwiklak 92711
+# Emma Ćwiklak
 
 ## Narzędzie konsolowe do obróbki zdjęć
  Aplikacja służy do podstawowej obróbki zdjęć z poziomu terminala przez podawane flagi. Do realizacji narzędzia wykorzystane były biblioteki argparse i cv2. 
